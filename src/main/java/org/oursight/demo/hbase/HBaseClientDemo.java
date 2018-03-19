@@ -220,34 +220,25 @@ public class HBaseClientDemo {
     }
   }
 
-  private void getOneRecordAllVersion(String tableName, String rowkey) {
-    HTablePool hTablePool = new HTablePool(conf, 1000);
-    HTableInterface table = hTablePool.getTable(tableName);
-    Get get = new Get(rowkey.getBytes());
-    try {
-      Result result = table.get(get);
-      if (result.raw().length > 0) {
-        for (KeyValue kv : result.raw()) {
-          /*
-					 * System.out.println(new String(kv.getRow()) + "\t" + new
-					 * String(kv.getValue()));
-					 */
-
-          System.out.println("family:" + Bytes.toString(kv.getFamily()));
-          System.out.println("qualifier:" + Bytes.toString(kv.getQualifier()));
-          System.out.println("value:" + Bytes.toString(kv.getValue()));
-          System.out.println("Timestamp:" + kv.getTimestamp());
-          System.out.println();
-          // + new String(kv.getValueArray()));
-					/*
-					 * System.out.println(new String(kv.getKey()) + "\t" + new
-					 * String(kv.getValue()));
-					 */
-        }
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
+  public  void getOneRecordAllVersion(String tableName, String rowKey, String familyName, String columnName) throws IOException {
+    HTable table = new HTable(conf, Bytes.toBytes(tableName));
+    Get get = new Get(Bytes.toBytes(rowKey));
+    get.addColumn(Bytes.toBytes(familyName), Bytes.toBytes(columnName));
+    get.setMaxVersions(10);
+    Result result = table.get(get);
+    for (KeyValue kv : result.list()) {
+      System.out.println("family:" + Bytes.toString(kv.getFamily()));
+      System.out.println("qualifier:" + Bytes.toString(kv.getQualifier()));
+      System.out.println("value:" + Bytes.toString(kv.getValue()));
+      System.out.println("Timestamp:" + DateUtil.timeMillisToString(kv.getTimestamp()));
+      System.out.println();
+//      System.out.println("-------------------------------------------");
     }
+        /*
+         * List<?> results = table.get(get).list(); Iterator<?> it =
+         * results.iterator(); while (it.hasNext()) {
+         * System.out.println(it.next().toString()); }
+         */
   }
 
   /**
@@ -321,7 +312,7 @@ public class HBaseClientDemo {
       System.out
               .println("qualifier:" + Bytes.toString(kv.getQualifier()));
       System.out.println("value:" + Bytes.toString(kv.getValue()));
-      System.out.println("Timestamp:" + kv.getTimestamp());
+      System.out.println("Timestamp:" + DateUtil.timeMillisToString(kv.getTimestamp()));
       System.out.println("-------------------------------------------");
     }
   }
@@ -337,7 +328,7 @@ public class HBaseClientDemo {
 //    client.getAllData(testTableName);
 
 //    client.getOneRecord("test_tb", "row1");
-    client.getOneRecordAllVersion("test_tb", "row1");
+    client.getOneRecordAllVersion("test_tb", "row1", "cf", "a");
 //    client.getOneRecordByColumn("test_tb", "row1", "cf", "a");
 //    client.getAllTables();
   }
