@@ -1,0 +1,112 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.oursight.demo</groupId>
+  <artifactId>hbase-demo</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>hbase-demo</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>releases</id>
+      <url>http://hc-repo.alibaba.net:8081/nexus/content/repositories/releases</url>
+    </repository>
+    <repository>
+      <id>snapshots</id>
+      <url>http://hc-repo.alibaba.net:8081/nexus/content/repositories/snapshots</url>
+      <snapshots>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>alibaba-nexus</id>
+      <url>http://hc-repo.alibaba.net:8081/nexus/content/repositories/alibaba-nexus</url>
+    </repository>
+    <repository>
+      <id>alibaba-snapshot</id>
+      <url>http://hc-repo.alibaba.net:8081/nexus/content/repositories/alibaba-snapshot</url>
+      <snapshots>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>public</id>
+      <url>http://hc-repo.alibaba.net:8081/nexus/content/repositories/public</url>
+      <snapshots>
+        <updatePolicy>always</updatePolicy>
+      </snapshots>
+    </repository>
+  </repositories>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+
+    <!--<dependency>-->
+      <!--<groupId>org.apache.hbase</groupId>-->
+      <!--<artifactId>hbase-server</artifactId>-->
+      <!--<version>1.2.0-cdh5.8.0</version>-->
+    <!--</dependency>-->
+
+    <!-- https://mvnrepository.com/artifact/org.apache.hbase/hbase-server -->
+    <dependency>
+      <groupId>org.apache.hbase</groupId>
+      <artifactId>hbase-server</artifactId>
+      <version>1.2.0-cdh5.8.0</version>
+    </dependency>
+
+
+
+    <!-- https://mvnrepository.com/artifact/org.apache.hbase/hbase-client -->
+    <!--<dependency>-->
+      <!--<groupId>org.apache.hbase</groupId>-->
+      <!--<artifactId>hbase-client</artifactId>-->
+      <!--<version>1.3.1</version>-->
+    <!--</dependency>-->
+
+    <!--&lt;!&ndash; https://mvnrepository.com/artifact/org.apache.phoenix/phoenix-core &ndash;&gt;-->
+    <!--<dependency>-->
+      <!--<groupId>org.apache.phoenix</groupId>-->
+      <!--<artifactId>phoenix-core</artifactId>-->
+      <!--<version>4.11.0-HBase-1.3</version>-->
+    <!--</dependency>-->
+
+
+
+
+    <!--<dependency>-->
+      <!--<groupId>ch.qos.logback</groupId>-->
+      <!--<artifactId>logback-classic</artifactId>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+      <!--<groupId>org.slf4j</groupId>-->
+      <!--<artifactId>slf4j-api</artifactId>-->
+    <!--</dependency>-->
+    <!--<dependency>-->
+      <!--<groupId>org.slf4j</groupId>-->
+      <!--<artifactId>jcl-over-slf4j</artifactId>-->
+    <!--</dependency>-->
+
+    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12 -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.7.25</version>
+      <scope>test</scope>
+    </dependency>
+
+
+  </dependencies>
+</project>
