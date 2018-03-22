@@ -26,8 +26,10 @@ import java.io.IOException;
 /**
  * see:
  * http://www.cnblogs.com/ggjucheng/p/3381328.html
+ * http://www.cnblogs.com/ggjucheng/p/3381328.html
+ * https://www.jianshu.com/p/37adca38b1b4
  */
-public class HBaseClientDemo {
+public class  HBaseClientDemo {
 
   static HBaseAdmin admin = null;
   Configuration conf = null;
@@ -197,13 +199,18 @@ public class HBaseClientDemo {
 //          System.out.println(Bytes.toString(kv.getKey()));
           System.out.println(Bytes.toString(kv.getValue()));
 
-          System.out.println();
-          System.out.println();
+
+
 
           System.out.println("family:" + Bytes.toString(kv.getFamily()));
           System.out.println("qualifier:" + Bytes.toString(kv.getQualifier()));
           System.out.println("value:" + Bytes.toString(kv.getValue()));
           System.out.println("Timestamp:" + kv.getTimestamp());
+
+          String res = Bytes.toString(kv.getValueArray(), kv.getValueOffset(), kv.getValueLength());
+          System.out.println("rest: " + res);
+          System.out.println();
+          System.out.println();
 
 //          System.out.print(new String(kv.get) + "\t");
 
@@ -301,8 +308,7 @@ public class HBaseClientDemo {
     }
   }
 
-  public  void getOneRecordByColumn(String tableName, String rowKey,
-                                       String familyName, String columnName) throws IOException {
+  public  void getOneRecordByColumn(String tableName, String rowKey, String familyName, String columnName) throws IOException {
     HTable table = new HTable(conf, Bytes.toBytes(tableName));
     Get get = new Get(Bytes.toBytes(rowKey));
     get.addColumn(Bytes.toBytes(familyName), Bytes.toBytes(columnName)); // 获取指定列族和列修饰符对应的列
@@ -311,7 +317,8 @@ public class HBaseClientDemo {
       System.out.println("family:" + Bytes.toString(kv.getFamily()));
       System.out
               .println("qualifier:" + Bytes.toString(kv.getQualifier()));
-      System.out.println("value:" + Bytes.toString(kv.getValue()));
+      System.out.println("value as String:" + Bytes.toString(kv.getValue()));
+      System.out.println("value as Int:" + Bytes.toBigDecimal(kv.getValue()));
       System.out.println("Timestamp:" + DateUtil.timeMillisToString(kv.getTimestamp()));
       System.out.println("-------------------------------------------");
     }
@@ -327,9 +334,9 @@ public class HBaseClientDemo {
 //    client.addOneData(testTableName, "row_url2", "f1", "html", "<html>2222</html>");
 //    client.getAllData(testTableName);
 
-//    client.getOneRecord("test_tb", "row1");
-    client.getOneRecordAllVersion("test_tb", "row1", "cf", "a");
-//    client.getOneRecordByColumn("test_tb", "row1", "cf", "a");
+    client.getOneRecord("test_tb", "row1");
+//    client.getOneRecordAllVersion("test_tb", "row1", "cf", "a");
+//    client.getOneRecordByColumn("test_tb", "row1", "cf", "b");
 //    client.getAllTables();
   }
 
